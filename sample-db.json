@@ -1,0 +1,102 @@
+{
+	"SceLibKernel" : {
+		"nid" :1237592384,
+		"modules" : {
+			"SceLibKernel" : {
+				"nid" :3404311782,
+				"kernel" :false,
+				"functions" : {
+					"sceKernelPuts" :37661282,
+					"sceKernelGetThreadId" :263811833,
+					"sceIoDevctl" :78843058
+				},
+				"variables" : {
+					"SceKernelStackGuard" :1146666227
+				}
+			},
+			"SceLibc" : {
+				"nid" :1450899879,
+				"kernel" :false,
+				"functions" : {
+					"printf" : 2583709312,
+					"puts" : 1506009457,
+					"sprintf": 1950987097,
+					"malloc": 2002390194,
+					"free": 1536931842,
+					"memalign": 2838904427,
+					"memcpy": 1912979419,
+					"memset": 1841426648
+				},
+				"variables" : {
+					"dummy3" :11234567
+				}
+			}
+		}
+	},
+	"SceDisplay" : {
+		"nid" :1042266168,
+		"modules" : {
+			"SceDisplay" : {
+				"nid" :3404361784,
+				"kernel" :false,
+				"functions" : {
+					"sceDisplayGetFrameBuf" : 1118727100,
+					"sceDisplaySetFrameBuf": 2051083108,
+					"sceDisplayWaitVblankStart": 1469442200
+				},
+				"variables" : {
+					"dummy" :123456
+				}
+			}
+		}
+	},
+	"SceGxm" : {
+		"nid" :1142266168,
+		"modules" : {
+			"SceGxm" : {
+				"nid" :4404361784,
+				"kernel" :false,
+				"functions" : {
+					"sceGxmMapMemory": 3323868412,
+					"sceGxmUnmapMemory": 2190239976,
+					"sceGxmInitialize": 2968642796,
+					"sceGxmTerminate": 3056066150
+				},
+				"variables" : {
+					"dummy2" :1234567
+				}
+			}
+		}
+	},
+	"SceSysmem": {
+		"nid": 143,
+		"modules": {
+			"SceSysmem": {
+				"nid": 144,
+				"kernel": false,
+				"functions": {
+					"sceKernelAllocMemBlock": 3117804510,
+					"sceKernelGetMemBlockBase": 3102693400
+				},
+				"variables": {
+					"dummy4" :12344467
+				}
+			}
+		}
+	},
+	"SceCtrl": {
+		"nid": 71143,
+		"modules": {
+			"SceCtrl": {
+				"nid": 7145,
+				"kernel": false,
+				"functions": {
+					"sceCtrlPeekBufferPositive": 2848181974
+				},
+				"variables": {
+					"dummy6" :42344468
+				}
+			}
+		}
+	}
+}
