@@ -35,6 +35,8 @@ int _start()
 		clear_screen();
 		//ret = sceCtrlPeekBufferPositive(0, &pad, 1);
 
+		font_draw_string(10, 10, RGBA8(0, 0, 255, 255), "Hello world by xerpi!");
+
 		/* Move the square */
 		x += inc_x;
 		y += inc_y;

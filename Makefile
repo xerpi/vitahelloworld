@@ -4,7 +4,7 @@
 #
 
 TARGET = vitahelloworld
-OBJS   = main.o draw.o
+OBJS   = main.o draw.o font_data.o
 
 STUBS = libSceLibKernel.a libSceDisplay.a libSceGxm.a libSceSysmem.a libSceCtrl.a
 
