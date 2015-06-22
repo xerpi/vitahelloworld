@@ -6,7 +6,7 @@
 TARGET = vitahelloworld
 OBJS   = main.o draw.o
 
-OBJS += stubs/libSceLibKernel.a stubs/libSceDisplay.a stubs/libSceGxm.a stubs/libSceSysmem.a stubs/libSceCtrl.a
+STUBS = libSceLibKernel.a libSceDisplay.a libSceGxm.a libSceSysmem.a libSceCtrl.a
 
 NIDS_DB = sample-db.json
 
@@ -16,6 +16,8 @@ READELF = $(PREFIX)-readelf
 OBJDUMP = $(PREFIX)-objdump
 CFLAGS  = -Wall -nostartfiles -nostdlib -I$(PSP2SDK)/include
 
+STUBS_FULL = $(addprefix stubs/, $(STUBS))
+
 all: $(TARGET).velf
 
 $(TARGET).velf: $(TARGET).elf
@@ -24,18 +26,16 @@ $(TARGET).velf: $(TARGET).elf
 #	$(OBJDUMP) -D -j .text.fstubs $(TARGET).velf
 #	$(OBJDUMP) -s -j .data.vstubs -j .sceModuleInfo.rodata -j .sceLib.ent -j .sceExport.rodata -j .sceLib.stubs -j .sceImport.rodata -j .sceFNID.rodata -j .sceFStub.rodata -j .sceVNID.rodata -j .sceVStub.rodata -j .sce.rel $(TARGET).velf
 
-$(TARGET).elf: $(OBJS)
+$(TARGET).elf: $(OBJS) $(STUBS_FULL)
 	$(CC) -Wl,-q -o $@ $^ $(CFLAGS)
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-stubs/%.a: stubs $(NIDS_DB)
-	vita-libs-gen sample-db.json stubs/
-	$(MAKE) -C stubs $*.a
-
-stubs:
-	@mkdir stubs
+$(STUBS_FULL):
+	@mkdir -p stubs
+	vita-libs-gen $(NIDS_DB) stubs/
+	$(MAKE) -C stubs $(notdir $@)
 
 clean:
 	@rm -rf $(TARGET).elf $(TARGET).velf $(OBJS) stubs
