@@ -17,26 +17,23 @@
 #include "defines.h"
 #include "draw.h"
 
-int foo = 0;
 
 int _start()
 {
-	SceDisplayFrameBuf fb;
-	SceCtrlData pad;
-	int ret;
+	//SceCtrlData pad;
+	//int ret;
 
-	init_video(&fb);
+	init_video();
 
 	#define SQUARE_SIZE 60
 	int x = SCREEN_W/2 - SQUARE_SIZE/2;
 	int y = SCREEN_H/2 - SQUARE_SIZE/2;
 	int inc_x = 7;
 	int inc_y = 5;
-	while (1) {
-		clear_screen(&fb);
-		//ret = sceCtrlPeekBufferPositive(0, &pad, 1);
-		printf("foo: %i\n", foo++);
 
+	while (1) {
+		clear_screen();
+		//ret = sceCtrlPeekBufferPositive(0, &pad, 1);
 
 		/* Move the square */
 		x += inc_x;
@@ -61,11 +58,11 @@ int _start()
 		}
 
 		/* Draw the square */
-		draw_rectangle(&fb, x, y, SQUARE_SIZE, SQUARE_SIZE, RGBA8(255, 0, 0, 255));
+		draw_rectangle(x, y, SQUARE_SIZE, SQUARE_SIZE, RGBA8(255, 0, 0, 255));
 
 		sceDisplayWaitVblankStart();
 	}
 
-	end_video(&fb);
+	end_video();
 	return 0;
 }

@@ -8,8 +8,7 @@
 #include "draw.h"
 #include "defines.h"
 
-// Global vars don't work?
-//static SceDisplayFrameBuf fb;
+static SceDisplayFrameBuf fb;
 
 static void *alloc_gpu_mem(uint32_t type, uint32_t size, uint32_t attribs, SceUID *uid)
 {
@@ -41,7 +40,7 @@ static void *alloc_gpu_mem(uint32_t type, uint32_t size, uint32_t attribs, SceUI
 	return mem;
 }
 
-void init_video(SceDisplayFrameBuf *fb)
+void init_video()
 {
 	int ret;
 	SceUID uid;
@@ -59,8 +58,8 @@ void init_video(SceDisplayFrameBuf *fb)
 	printf("sceGxmInitialize(): 0x%08X\n", ret);
 
 	/* Get current buffer info */
-	fb->size = sizeof(*fb);
-	ret = sceDisplayGetFrameBuf(fb, PSP2_DISPLAY_SETBUF_IMMEDIATE);
+	fb.size = sizeof(fb);
+	ret = sceDisplayGetFrameBuf(&fb, PSP2_DISPLAY_SETBUF_IMMEDIATE);
 	printf("sceDisplayGetFrameBuf(): 0x%08X\n", ret);
 
 	/* Allocate a new framebuffer */
@@ -71,8 +70,8 @@ void init_video(SceDisplayFrameBuf *fb)
 	}
 
 	/* Use the new framebuffer! */
-	fb->base = base;
-	sceDisplaySetFrameBuf(fb, PSP2_DISPLAY_SETBUF_NEXTFRAME);
+	fb.base = base;
+	sceDisplaySetFrameBuf(&fb, PSP2_DISPLAY_SETBUF_NEXTFRAME);
 
 	printf(
 		"\nframebuffer:\n"
@@ -82,27 +81,27 @@ void init_video(SceDisplayFrameBuf *fb)
 		"\tpixelformat:    0x%08X\n"
 		"\twidth:          0x%08X\n"
 		"\theight          0x%08X\n",
-		fb->size, (uintptr_t)fb->base,
-		fb->pitch, fb->pixelformat, fb->width, fb->height);
+		fb.size, (uintptr_t)fb.base,
+		fb.pitch, fb.pixelformat, fb.width, fb.height);
 }
 
-void end_video(SceDisplayFrameBuf *fb)
+void end_video()
 {
-	sceGxmUnmapMemory(fb->base);
+	sceGxmUnmapMemory(fb.base);
 	sceGxmTerminate();
 }
 
-void draw_pixel(SceDisplayFrameBuf *fb, uint32_t x, uint32_t y, uint32_t color)
+void draw_pixel(uint32_t x, uint32_t y, uint32_t color)
 {
-	((uint32_t *)fb->base)[x + y*fb->pitch] = color;
+	((uint32_t *)fb.base)[x + y*fb.pitch] = color;
 }
 
-void draw_rectangle(SceDisplayFrameBuf *fb, uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color)
+void draw_rectangle(uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color)
 {
 	int i, j;
 	for (i = 0; i < h; i++) {
 		for (j = 0; j < w; j++) {
-			((uint32_t *)fb->base)[(x + j) + (y + i)*fb->pitch] = color;
+			((uint32_t *)fb.base)[(x + j) + (y + i)*fb.pitch] = color;
 		}
 	}
 }

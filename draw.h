@@ -12,11 +12,11 @@
 #define SCREEN_W 960
 #define SCREEN_H 544
 
-void init_video(SceDisplayFrameBuf *fb);
-void end_video(SceDisplayFrameBuf *fb);
-void draw_pixel(SceDisplayFrameBuf *fb, uint32_t x, uint32_t y, uint32_t color);
-void draw_rectangle(SceDisplayFrameBuf *fb, uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color);
+void init_video();
+void end_video();
+void draw_pixel(uint32_t x, uint32_t y, uint32_t color);
+void draw_rectangle( uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color);
 
-#define clear_screen(fb) draw_rectangle(fb, 0, 0, SCREEN_W, SCREEN_H, RGBA8(255, 255, 255, 255))
+#define clear_screen() draw_rectangle(0, 0, SCREEN_W, SCREEN_H, RGBA8(255, 255, 255, 255))
 
 #endif

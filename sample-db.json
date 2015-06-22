@@ -9,9 +9,6 @@
 					"sceKernelPuts" :37661282,
 					"sceKernelGetThreadId" :263811833,
 					"sceIoDevctl" :78843058
-				},
-				"variables" : {
-					"SceKernelStackGuard" :1146666227
 				}
 			},
 			"SceLibc" : {
@@ -26,9 +23,6 @@
 					"memalign": 2838904427,
 					"memcpy": 1912979419,
 					"memset": 1841426648
-				},
-				"variables" : {
-					"dummy3" :11234567
 				}
 			}
 		}
@@ -43,9 +37,6 @@
 					"sceDisplayGetFrameBuf" : 1118727100,
 					"sceDisplaySetFrameBuf": 2051083108,
 					"sceDisplayWaitVblankStart": 1469442200
-				},
-				"variables" : {
-					"dummy" :123456
 				}
 			}
 		}
@@ -61,9 +52,6 @@
 					"sceGxmUnmapMemory": 2190239976,
 					"sceGxmInitialize": 2968642796,
 					"sceGxmTerminate": 3056066150
-				},
-				"variables" : {
-					"dummy2" :1234567
 				}
 			}
 		}
@@ -77,9 +65,6 @@
 				"functions": {
 					"sceKernelAllocMemBlock": 3117804510,
 					"sceKernelGetMemBlockBase": 3102693400
-				},
-				"variables": {
-					"dummy4" :12344467
 				}
 			}
 		}
@@ -92,9 +77,6 @@
 				"kernel": false,
 				"functions": {
 					"sceCtrlPeekBufferPositive": 2848181974
-				},
-				"variables": {
-					"dummy6" :42344468
 				}
 			}
 		}
