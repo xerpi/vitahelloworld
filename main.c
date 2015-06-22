@@ -28,8 +28,8 @@ int _start()
 	#define SQUARE_SIZE 60
 	int x = SCREEN_W/2 - SQUARE_SIZE/2;
 	int y = SCREEN_H/2 - SQUARE_SIZE/2;
-	int inc_x = 7;
-	int inc_y = 5;
+	int inc_x = 12;
+	int inc_y = 8;
 
 	while (1) {
 		clear_screen();
@@ -62,6 +62,7 @@ int _start()
 		/* Draw the square */
 		draw_rectangle(x, y, SQUARE_SIZE, SQUARE_SIZE, RGBA8(255, 0, 0, 255));
 
+		swap_buffers();
 		sceDisplayWaitVblankStart();
 	}
 
