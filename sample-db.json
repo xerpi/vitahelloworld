@@ -26,6 +26,13 @@
 					"memset": 1841426648,
 					"rand": 3230152805
 				}
+			},
+			"SceProcessmgr": {
+				"nid": 99,
+				"kernel":false,
+				"functions": {
+					"sceKernelLibcGettimeofday": 1267175513
+				}
 			}
 		}
 	},

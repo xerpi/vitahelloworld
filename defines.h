@@ -6,13 +6,15 @@
 #define DEFINES_H
 
 #include <psp2/types.h>
+#include <sys/time.h>
 
 #define align_mem(addr, align) (((addr) + ((align) - 1)) & ~((align) - 1))
 #define lerp(value, from_max, to_max) ((((value*10) * (to_max*10))/(from_max*10))/10)
+#define abs(x) ((x) < 0 ? (-x) : (x))
 
 extern int sceKernelAllocMemBlock(const char *name, int type, int size, void *optp);
 extern int sceKernelGetMemBlockBase(SceUID uid, void **basep);
-
+extern int sceKernelLibcGettimeofday(struct timeval *tp, struct timezone *tzp);
 
 /* grabbed from: Hykem/vitasploit/include/FW_200_320/functions_ex.js */
 

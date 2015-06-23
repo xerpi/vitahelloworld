@@ -3,6 +3,11 @@ Homebrew sample for the PSVita.
 
 ## Compiling
 
+Prerequisites:
+* gcc
+* libssl-dev
+* libjansson-dev
+
 In order two compile this sample you need to download:
 * [devkitARM] (http://sourceforge.net/projects/devkitpro/files/devkitARM)
 * [psp2sdk] (https://github.com/173210/psp2sdk)
