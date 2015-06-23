@@ -1,54 +1,55 @@
 {
-	"SceLibKernel" : {
-		"nid" :1237592384,
-		"modules" : {
-			"SceLibKernel" : {
-				"nid" :3404311782,
-				"kernel" :false,
-				"functions" : {
-					"sceKernelPuts" :37661282,
-					"sceKernelGetThreadId" :263811833,
-					"sceIoDevctl" :78843058
+	"SceLibKernel": {
+		"nid":1237592384,
+		"modules": {
+			"SceLibKernel": {
+				"nid":3404311782,
+				"kernel":false,
+				"functions": {
+					"sceKernelPuts":37661282,
+					"sceKernelGetThreadId":263811833,
+					"sceIoDevctl":78843058
 				}
 			},
-			"SceLibc" : {
-				"nid" :1450899879,
-				"kernel" :false,
-				"functions" : {
-					"printf" : 2583709312,
-					"puts" : 1506009457,
+			"SceLibc": {
+				"nid":1450899879,
+				"kernel":false,
+				"functions": {
+					"printf": 2583709312,
+					"puts": 1506009457,
 					"sprintf": 1950987097,
 					"vsnprintf": 4270060260,
 					"malloc": 2002390194,
 					"free": 1536931842,
 					"memalign": 2838904427,
 					"memcpy": 1912979419,
-					"memset": 1841426648
+					"memset": 1841426648,
+					"rand": 3230152805
 				}
 			}
 		}
 	},
-	"SceDisplay" : {
-		"nid" :1042266168,
-		"modules" : {
-			"SceDisplay" : {
-				"nid" :3404361784,
-				"kernel" :false,
-				"functions" : {
-					"sceDisplayGetFrameBuf" : 1118727100,
+	"SceDisplay": {
+		"nid": 100,
+		"modules": {
+			"SceDisplay": {
+				"nid": 101,
+				"kernel": false,
+				"functions": {
+					"sceDisplayGetFrameBuf": 1118727100,
 					"sceDisplaySetFrameBuf": 2051083108,
 					"sceDisplayWaitVblankStart": 1469442200
 				}
 			}
 		}
 	},
-	"SceGxm" : {
-		"nid" :1142266168,
-		"modules" : {
-			"SceGxm" : {
-				"nid" :4404361784,
-				"kernel" :false,
-				"functions" : {
+	"SceGxm": {
+		"nid": 102,
+		"modules": {
+			"SceGxm": {
+				"nid": 103,
+				"kernel": false,
+				"functions": {
 					"sceGxmMapMemory": 3323868412,
 					"sceGxmUnmapMemory": 2190239976,
 					"sceGxmInitialize": 2968642796,
@@ -58,10 +59,10 @@
 		}
 	},
 	"SceSysmem": {
-		"nid": 143,
+		"nid": 104,
 		"modules": {
 			"SceSysmem": {
-				"nid": 144,
+				"nid": 105,
 				"kernel": false,
 				"functions": {
 					"sceKernelAllocMemBlock": 3117804510,
@@ -71,13 +72,14 @@
 		}
 	},
 	"SceCtrl": {
-		"nid": 71143,
+		"nid": 106,
 		"modules": {
 			"SceCtrl": {
-				"nid": 7145,
+				"nid": 107,
 				"kernel": false,
 				"functions": {
-					"sceCtrlPeekBufferPositive": 2848181974
+					"sceCtrlPeekBufferPositive": 2848181974,
+					"sceCtrlSetSamplingMode": 2761404752
 				}
 			}
 		}

@@ -17,50 +17,74 @@
 #include "defines.h"
 #include "draw.h"
 
-
 int _start()
 {
-	//SceCtrlData pad;
-	//int ret;
-
 	init_video();
 
-	#define SQUARE_SIZE 60
-	int x = SCREEN_W/2 - SQUARE_SIZE/2;
-	int y = SCREEN_H/2 - SQUARE_SIZE/2;
-	int inc_x = 12;
-	int inc_y = 8;
+	int size = 60;
+	int x = SCREEN_W/2 - size/2;
+	int y = SCREEN_H/2 - size/2;
+	int speed = 2;
+	uint32_t color = RGBA8(255, 0, 0, 255);
+
+	CtrlData pad;
 
 	while (1) {
 		clear_screen();
-		//ret = sceCtrlPeekBufferPositive(0, &pad, 1);
+		sceCtrlPeekBufferPositive(0, (SceCtrlData *)&pad, 1);
 
 		font_draw_string(10, 10, RGBA8(0, 0, 255, 255), "Hello world by xerpi!");
+		font_draw_stringf(10, 30, RGBA8(0, 0, 255, 255),
+			"(%3d, %3d) size: %d speed: %d\n", x, y, size, speed);
 
 		/* Move the square */
-		x += inc_x;
-		y += inc_y;
+		if (pad.buttons & PSP2_CTRL_UP) {
+			y -= speed;
+		} else 	if (pad.buttons & PSP2_CTRL_DOWN) {
+			y += speed;
+		}
+		if (pad.buttons & PSP2_CTRL_LEFT) {
+			x -= speed;
+		} else 	if (pad.buttons & PSP2_CTRL_RIGHT) {
+			x += speed;
+		}
+
+		if (pad.buttons & PSP2_CTRL_SQUARE) {
+			speed--;
+			if (speed < 0) speed = 0;
+		} else 	if (pad.buttons & PSP2_CTRL_CIRCLE) {
+			speed++;
+			if (speed > 100) speed = 100;
+		}
+
+		if (pad.buttons & PSP2_CTRL_LTRIGGER) {
+			size--;
+			if (size < 0) size = 0;
+		} else 	if (pad.buttons & PSP2_CTRL_RTRIGGER) {
+			size++;
+			if (speed > 544) speed = 544;
+		}
+
+		if (pad.buttons & PSP2_CTRL_CROSS) {
+			color = RGBA8(rand()%255, rand()%255, rand()%255, 255);
+		}
 
 		/* Check left and right collisions */
 		if (x < 0) {
 			x = 0;
-			inc_x = -inc_x;
-		} else if ((x + SQUARE_SIZE) > SCREEN_W) {
-			x = SCREEN_W - SQUARE_SIZE;
-			inc_x = -inc_x;
+		} else if ((x + size) > SCREEN_W) {
+			x = SCREEN_W - size;
 		}
 
 		/* Check top and bottom collisions */
 		if (y < 0) {
 			y = 0;
-			inc_y = -inc_y;
-		} else if ((y + SQUARE_SIZE) > SCREEN_H) {
-			y = SCREEN_H - SQUARE_SIZE;
-			inc_y = -inc_y;
+		} else if ((y + size) > SCREEN_H) {
+			y = SCREEN_H - size;
 		}
 
 		/* Draw the square */
-		draw_rectangle(x, y, SQUARE_SIZE, SQUARE_SIZE, RGBA8(255, 0, 0, 255));
+		draw_rectangle(x, y, size, size, color);
 
 		swap_buffers();
 		sceDisplayWaitVblankStart();

@@ -3,6 +3,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
 #include <psp2/display.h>
 #include <psp2/gxm.h>
@@ -129,6 +130,11 @@ void swap_buffers()
 {
 	sceDisplaySetFrameBuf(&fb[cur_fb], PSP2_DISPLAY_SETBUF_NEXTFRAME);
 	cur_fb ^= 1;
+}
+
+void clear_screen()
+{
+	memset(fb[cur_fb].base, 0xFF, SCREEN_W*SCREEN_H*4);
 }
 
 void draw_pixel(uint32_t x, uint32_t y, uint32_t color)

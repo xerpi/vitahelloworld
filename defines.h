@@ -33,26 +33,16 @@ extern int sceKernelGetMemBlockBase(SceUID uid, void **basep);
 
 /* SceCtrl */
 
-#define SCE_CTRL_SELECT				0x00001
-#define SCE_CTRL_START				0x00008
-#define SCE_CTRL_UP				0x00010
-#define SCE_CTRL_RIGHT				0x00020
-#define SCE_CTRL_DOWN				0x00040
-#define SCE_CTRL_LEFT				0x00080
-#define SCE_CTRL_LTRIGGER			0x00100
-#define SCE_CTRL_RTRIGGER			0x00200
-#define SCE_CTRL_TRIANGLE			0x01000
-#define SCE_CTRL_CIRCLE				0x02000
-#define SCE_CTRL_CROSS				0x04000
-#define SCE_CTRL_SQUARE				0x08000
-#define SCE_CTRL_INTERCEPTED			0x10000
-#define SCE_CTRL_MODE_DIGITALONLY		0x0
-#define SCE_CTRL_MODE_DIGITALANALOG		0x1
-#define SCE_CTRL_MODE_DIGITALANALOG_WIDE	0x2
+typedef struct {
+	unsigned int 	timeStamp;
+	unsigned int	unk0;
+	unsigned int 	buttons;
+	unsigned char 	lx;
+	unsigned char 	ly;
+	unsigned char 	rx;
+	unsigned char 	ry;
+	uint8_t 	reserved[16];
+} CtrlData;
 
-/* SceTouch */
-
-#define SCE_TOUCH_PORT_FRONT	0x0
-#define SCE_TOUCH_PORT_BACK	0x1
 
 #endif
