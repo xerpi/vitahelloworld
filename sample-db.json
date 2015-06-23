@@ -83,5 +83,17 @@
 				}
 			}
 		}
+	},
+	"SceTouch": {
+		"nid": 108,
+		"modules": {
+			"SceTouch": {
+				"nid": 109,
+				"kernel": false,
+				"functions": {
+					"sceTouchPeek": 4278726128
+				}
+			}
+		}
 	}
 }

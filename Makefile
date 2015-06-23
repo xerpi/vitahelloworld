@@ -6,7 +6,8 @@
 TARGET = vitahelloworld
 OBJS   = main.o draw.o font_data.o
 
-STUBS = libSceLibKernel.a libSceDisplay.a libSceGxm.a libSceSysmem.a libSceCtrl.a
+STUBS = libSceLibKernel.a libSceDisplay.a libSceGxm.a libSceSysmem.a \
+	libSceCtrl.a libSceTouch.a
 
 NIDS_DB = sample-db.json
 
