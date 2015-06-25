@@ -160,8 +160,7 @@ void draw_circle(uint32_t x, uint32_t y, uint32_t radius, uint32_t color)
 	int rr = radius << 1;
 
 	int i;
-	for (i = 0; i < area; i++)
-	{
+	for (i = 0; i < area; i++) {
 		int tx = (i % rr) - radius;
 		int ty = (i / rr) - radius;
 
