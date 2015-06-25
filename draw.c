@@ -135,7 +135,7 @@ void swap_buffers()
 
 void clear_screen()
 {
-	memset(fb[cur_fb].base, 0x00, SCREEN_W*SCREEN_H*4);
+	memset(fb[cur_fb].base, 0xFF, SCREEN_W*SCREEN_H*4);
 }
 
 void draw_pixel(uint32_t x, uint32_t y, uint32_t color)
