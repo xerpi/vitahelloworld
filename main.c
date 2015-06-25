@@ -139,6 +139,9 @@ int main()
 		/* Draw the rectangle */
 		draw_rectangle(x, y, w, h, color);
 
+		/* Draw a circle */
+		draw_circle(SCREEN_W / 2, SCREEN_H / 2, 50, RGBA8(0,0,255,255));
+
 		/* Calculate FPS */
 		cur_micros = sceKernelGetProcessTimeWide();
 
