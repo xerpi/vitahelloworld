@@ -7,8 +7,9 @@
 #include <stdarg.h>
 #include <psp2/display.h>
 #include <psp2/gxm.h>
+#include <psp2/kernel/memorymgr.h>
 #include "draw.h"
-#include "defines.h"
+#include "utils.h"
 
 extern const unsigned char msx_font[];
 

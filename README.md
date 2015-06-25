@@ -2,52 +2,14 @@
 Homebrew sample for the PSVita.
 
 ## Compiling
-
 Prerequisites:
-* gcc
-* libssl-dev
-* libjansson-dev
-
-In order two compile this sample you need to download:
-* [devkitARM] (http://sourceforge.net/projects/devkitpro/files/devkitARM)
+* arm gcc ([devkitARM r44] (http://sourceforge.net/projects/devkitpro/files/devkitARM/) for example)
 * [psp2sdk] (https://github.com/173210/psp2sdk)
-* [vita-toolchain] (https://github.com/vitasdk/vita-toolchain)
 
-First you need to install devkitARM, on my OS I've installed it to:
-```
-	/opt/devkitpro/devkitARM
-```
-To install it you can follow this tutorial: http://devkitpro.org/wiki/Getting_Started/devkitARM
-
-Once you got it installed, first setup an environment variable called PSP2SDK, for example by adding to the ~/.bashrc:
-```
-	export PSP2SDK=$DEVKITPRO/psp2
-	export PATH=$PATH:$PSP2SDK/bin
-```
-
-Then you need to compile and install psp2sdk:
-```
-	$ cd psp2sdk
-	$ export PATH=$DEVKITARM/bin:$PATH
-	$ sh autogen.sh --prefix=$PSP2SDK
-	$ cd tools && make install && cd ..
-	$ cd src && make install
-```
-
-Now we need to install vita-toolchain:
-```
-	$ cd vita-toolchain
-	$ make
-	$ cp vita-libs-gen $(PSP2SDK)/bin
-	$ cp vita-elf-create $(PSP2SDK)/bin
-```
-
-Now you can compile this homebrew by typing:
+Once all the prerequisites have been met, you can compile this homebrew by typing:
 ```
 	$ make
 ```
-
-The resulting file will be called: vitahelloworld.velf
 
 ## Credits
 Thanks to yifanlu for Rejuvenate and UVLoader :D
