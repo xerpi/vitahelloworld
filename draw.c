@@ -153,6 +153,23 @@ void draw_rectangle(uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t col
 	}
 }
 
+void draw_circle(uint32_t x, uint32_t y, uint32_t radius, uint32_t color)
+{
+	int r2 = radius * radius;
+	int area = r2 << 2;
+	int rr = radius << 1;
+
+	int i;
+	for (i = 0; i < area; i++) {
+		int tx = (i % rr) - radius;
+		int ty = (i / rr) - radius;
+
+		if (tx * tx + ty * ty <= r2) {
+			draw_pixel(x + tx, y + ty, color);
+		}
+	}
+}
+
 void font_draw_char(int x, int y, uint32_t color, char c)
 {
 	unsigned char *font = (unsigned char *)(msx_font + (c - (uint32_t)' ') * 8);
