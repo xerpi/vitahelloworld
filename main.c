@@ -158,5 +158,6 @@ int main()
 	}
 
 	end_video();
+	sceKernelExitProcess(0);
 	return 0;
 }
