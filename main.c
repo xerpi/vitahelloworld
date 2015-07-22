@@ -38,7 +38,7 @@ int main()
 	int speed = 2;
 	uint32_t color = RGBA8(255, 0, 0, 255);
 
-	/* Inout variables */
+	/* Input variables */
 	SceCtrlData pad;
 	SceTouchData touch;
 	signed char lx, ly, rx, ry;
