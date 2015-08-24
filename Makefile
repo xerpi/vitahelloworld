@@ -6,27 +6,31 @@
 TARGET = vitahelloworld
 OBJS   = main.o draw.o font_data.o
 
-LIBS = -lc_stub -lSceKernel_stub -lSceDisplay_stub -lSceGxm_stub	\
+LIBS = -lc -lSceKernel_stub -lSceDisplay_stub -lSceGxm_stub	\
 	-lSceCtrl_stub -lSceTouch_stub
 
-PREFIX  = $(DEVKITARM)/bin/arm-none-eabi
+PREFIX  = arm-vita-eabi
 CC      = $(PREFIX)-gcc
 READELF = $(PREFIX)-readelf
 OBJDUMP = $(PREFIX)-objdump
-CFLAGS  = -Wall -specs=psp2.specs
+CFLAGS  = -Wl,-q -Wall -O3 -I$(VITASDK)/include -L$(VITASDK)/lib
 ASFLAGS = $(CFLAGS)
 
-all: $(TARGET)_fixup.elf
+all: $(TARGET).velf
 
-%_fixup.elf: %.elf
-	psp2-fixup -q -S $< $@
+%.velf: %.elf
+	$(PREFIX)-strip -g $<
+	vita-elf-create $< $@ $(VITASDK)/bin/db.json
 
 $(TARGET).elf: $(OBJS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
 clean:
-	@rm -rf $(TARGET)_fixup.elf $(TARGET).elf $(OBJS)
+	@rm -rf $(TARGET).velf $(TARGET).elf $(OBJS)
 
-copy: $(TARGET)_fixup.elf
-	@cp $(TARGET)_fixup.elf ~/shared/vitasample.elf
+copy: $(TARGET).velf
+	@cp $(TARGET).velf ~/shared/vitasample.elf
 	@echo "Copied!"
+
+run: $(TARGET).velf
+	@sh run_homebrew_unity.sh $(TARGET).velf
