@@ -19,8 +19,6 @@
 #include "utils.h"
 #include "draw.h"
 
-PSP2_MODULE_INFO(0, 0, "vitahelloworld");
-
 int main()
 {
 	init_video();
@@ -50,7 +48,7 @@ int main()
 		sceCtrlPeekBufferPositive(0, &pad, 1);
 		sceTouchPeek(0, &touch, 1);
 
-		if (pad.buttons & PSP2_CTRL_START) {
+		if (pad.buttons & SCE_CTRL_START) {
 			break;
 		}
 
@@ -60,26 +58,26 @@ int main()
 			"(%3d, %3d) size: (%d, %d) speed: %d\n", x, y, w, h, speed);
 
 		/* Move the rectangle */
-		if (pad.buttons & PSP2_CTRL_UP) {
+		if (pad.buttons & SCE_CTRL_UP) {
 			y -= speed;
-		} else 	if (pad.buttons & PSP2_CTRL_DOWN) {
+		} else 	if (pad.buttons & SCE_CTRL_DOWN) {
 			y += speed;
 		}
-		if (pad.buttons & PSP2_CTRL_LEFT) {
+		if (pad.buttons & SCE_CTRL_LEFT) {
 			x -= speed;
-		} else 	if (pad.buttons & PSP2_CTRL_RIGHT) {
+		} else 	if (pad.buttons & SCE_CTRL_RIGHT) {
 			x += speed;
 		}
 
-		if (pad.buttons & PSP2_CTRL_LTRIGGER) {
+		if (pad.buttons & SCE_CTRL_LTRIGGER) {
 			speed--;
 			if (speed < 0) speed = 0;
-		} else 	if (pad.buttons & PSP2_CTRL_RTRIGGER) {
+		} else 	if (pad.buttons & SCE_CTRL_RTRIGGER) {
 			speed++;
 			if (speed > 100) speed = 100;
 		}
 
-		if (pad.buttons & PSP2_CTRL_CROSS) {
+		if (pad.buttons & SCE_CTRL_CROSS) {
 			color = RGBA8(rand()%255, rand()%255, rand()%255, 255);
 		}
 

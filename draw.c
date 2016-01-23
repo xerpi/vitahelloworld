@@ -17,34 +17,34 @@ static SceDisplayFrameBuf fb[2];
 static SceUID fb_memuid[2];
 static int cur_fb = 0;
 
-static void *alloc_gpu_mem(uint32_t type, uint32_t size, uint32_t attribs, SceUID *uid)
+void *gpu_alloc(SceKernelMemBlockType type, unsigned int size, unsigned int attribs, SceUID *uid)
 {
-	int ret;
-	void *mem = NULL;
+	void *mem;
 
-	if (type == SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW)
-		size = align_mem(size, 256 * 1024);
-	else
-		size = align_mem(size, 4 * 1024);
-
-	*uid = sceKernelAllocMemBlock("gxm", type, size, NULL);
-
-	printf("MemBlock uid: 0x%08X\n", *uid);
-
-	ret = sceKernelGetMemBlockBase(*uid, &mem);
-	printf("sceKernelGetMemBlockBase(): 0x%08X\n", ret);
-	printf("MemBlockBase addr: %p\n", mem);
-	if (ret != 0) {
-		return NULL;
+	if (type == SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW) {
+		size = align_mem(size, 256*1024);
+	} else {
+		size = align_mem(size, 4*1024);
 	}
 
-	ret = sceGxmMapMemory(mem, size, attribs);
-	printf("sceGxmMapMemory(): 0x%08X\n", ret);
-	if (ret != 0) {
+	*uid = sceKernelAllocMemBlock("gpu_mem", type, size, NULL);
+
+	if (sceKernelGetMemBlockBase(*uid, &mem) < 0)
 		return NULL;
-	}
+
+	if (sceGxmMapMemory(mem, size, attribs) < 0)
+		return NULL;
 
 	return mem;
+}
+
+void gpu_free(SceUID uid)
+{
+	void *mem = NULL;
+	if (sceKernelGetMemBlockBase(uid, &mem) < 0)
+		return;
+	sceGxmUnmapMemory(mem);
+	sceKernelFreeMemBlock(uid);
 }
 
 void init_video()
@@ -66,18 +66,18 @@ void init_video()
 	/* Setup framebuffers */
 	fb[0].size        = sizeof(fb[0]);
 	fb[0].pitch       = SCREEN_W;
-	fb[0].pixelformat = PSP2_DISPLAY_PIXELFORMAT_A8B8G8R8;
+	fb[0].pixelformat = SCE_DISPLAY_PIXELFORMAT_A8B8G8R8;
 	fb[0].width       = SCREEN_W;
 	fb[0].height      = SCREEN_H;
 
 	fb[1].size        = sizeof(fb[1]);
 	fb[1].pitch       = SCREEN_W;
-	fb[1].pixelformat = PSP2_DISPLAY_PIXELFORMAT_A8B8G8R8;
+	fb[1].pixelformat = SCE_DISPLAY_PIXELFORMAT_A8B8G8R8;
 	fb[1].width       = SCREEN_W;
 	fb[1].height      = SCREEN_H;
 
 	/* Allocate memory for the framebuffers */
-	fb[0].base = alloc_gpu_mem(SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW,
+	fb[0].base = gpu_alloc(SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW,
 		SCREEN_W * SCREEN_H * 4, SCE_GXM_MEMORY_ATTRIB_RW, &fb_memuid[0]);
 
 	if (fb[0].base == NULL) {
@@ -85,7 +85,7 @@ void init_video()
 		return;
 	}
 
-	fb[1].base = alloc_gpu_mem(SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW,
+	fb[1].base = gpu_alloc(SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW,
 		SCREEN_W * SCREEN_H * 4, SCE_GXM_MEMORY_ATTRIB_RW, &fb_memuid[1]);
 
 	if (fb[1].base == NULL) {
@@ -122,14 +122,14 @@ void init_video()
 
 void end_video()
 {
-	sceGxmUnmapMemory(fb[0].base);
-	sceGxmUnmapMemory(fb[1].base);
+	gpu_free(fb_memuid[0]);
+	gpu_free(fb_memuid[1]);
 	sceGxmTerminate();
 }
 
 void swap_buffers()
 {
-	sceDisplaySetFrameBuf(&fb[cur_fb], PSP2_DISPLAY_SETBUF_NEXTFRAME);
+	sceDisplaySetFrameBuf(&fb[cur_fb], SCE_DISPLAY_SETBUF_NEXTFRAME);
 	cur_fb ^= 1;
 }
 

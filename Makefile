@@ -20,7 +20,7 @@ all: $(TARGET).velf
 
 %.velf: %.elf
 	$(PREFIX)-strip -g $<
-	vita-elf-create $< $@ $(VITASDK)/bin/db.json
+	vita-elf-create $< $@ > /dev/null
 
 $(TARGET).elf: $(OBJS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
@@ -34,3 +34,7 @@ copy: $(TARGET).velf
 
 run: $(TARGET).velf
 	@sh run_homebrew_unity.sh $(TARGET).velf
+
+send: $(TARGET).velf
+	curl -T $(TARGET).velf ftp://$(PSVITAIP):1337/cache0:/
+	@echo "Sent."
