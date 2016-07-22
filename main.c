@@ -23,6 +23,12 @@ int main()
 {
 	init_video();
 
+	/* Enable analog stick */
+	sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
+
+	/* Enable front touchscreen */
+	sceTouchSetSamplingState(SCE_TOUCH_PORT_FRONT, 1);
+
 	/* FPS counting */
 	SceUInt64 cur_micros = 0, delta_micros = 0, last_micros = 0;
 	uint32_t frames = 0;
