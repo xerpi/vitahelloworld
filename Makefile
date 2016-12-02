@@ -2,8 +2,7 @@ TITLE_ID = XERP00001
 TARGET   = vitahelloworld
 OBJS     = main.o draw.o font_data.o
 
-LIBS = -lc -lSceKernel_stub -lSceDisplay_stub -lSceGxm_stub	\
-	-lSceCtrl_stub -lSceTouch_stub
+LIBS = -lc -lSceDisplay_stub -lSceGxm_stub -lSceCtrl_stub -lSceTouch_stub
 
 PREFIX  = arm-vita-eabi
 CC      = $(PREFIX)-gcc
